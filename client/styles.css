@@ -1,0 +1,396 @@
+/* styles.css */
+:root {
+    --background: #F4F4F0;
+    --accent: #A4825B;
+    --main: #92948E;
+    --dark-accent: #8c683f;
+    --dark-shade: #373F3D;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--main);
+    background-color: var(--background);
+    padding-top: 64px;
+}
+
+header {
+    background-color: var(--dark-shade);
+    padding: 1rem;
+    position: fixed; /* Make the header fixed */
+    top: 0; /* Stick it to the top */
+    left: 0; /* Align it to the left edge */
+    right: 0; /* Stretch it to the right edge */
+    z-index: 1000; /* Ensure it stays on top of other elements */
+    height: 64px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--background);
+}
+
+p {
+    font-size: 1.25rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--main);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 1rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--main);
+}
+
+nav ul li a.active {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+main {
+    margin: 0 auto;
+    /* padding-top: 4rem; /* Add extra padding to the top of the main content */
+}
+
+.hero {
+    text-align: center;
+    height: 55vh;
+    background-color: var(--dark-accent);
+    color: var(--background);
+    background-image: url('images/zion-canyon.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.who-we-are {
+    padding-top: 2rem;
+}
+
+.services {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-item {
+    position: relative;
+    background-color: var(--dark-shade);
+    color: var(--main);
+    border-radius: 16px;
+    text-align: center;
+    /* height: 600px; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.service-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 16px 16px 0 0;
+}
+
+.service-item .service-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 4rem;
+    /* height: 250px; */
+}
+
+.service-content .call-to-action {
+    position: absolute;
+    bottom: 1rem;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    height: 40px;
+    line-height: 40px;
+}
+
+footer {
+    background-color: var(--dark-shade);
+    color: var(--main);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 4rem;
+}
+
+.about h2 {
+    margin-bottom: 0.5rem;
+}
+
+.about p {
+    margin-bottom: 1.5rem;
+}
+
+section.reach-out .call-to-action {
+    text-align: left;
+    padding-left: 2rem;
+}
+
+.contact form {
+    margin-top: 1rem;;
+    max-width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--main);
+    /* font-weight: bold; */
+}
+
+.contact form input,
+.contact form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--dark-shade);
+    border-radius: 15px;
+    background-color: transparent;
+    color: var(--main);
+    font-size: 1rem;
+}
+
+.contact form input:focus,
+.contact form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.button {
+    text-decoration: none;
+    background-color: var(--accent);
+    color: var(--background);
+    border: none;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.button:hover {
+    background-color: var(--dark-accent);
+}
+
+.split-layout {
+    margin-top: 2rem !important;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+.content-left {
+    flex: 1;
+    padding: 2rem;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.image-right {
+    flex: 1;
+    height: 100%;
+    text-align: right;
+}
+
+.image-right img {
+    width: 45vw;
+    max-width: 50vw;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.about, .contact {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.contact form {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.25rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    p {
+        font-size: 1rem;
+    }
+    
+    .logo {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    
+    nav {
+        flex-direction: row;
+    }
+
+    .hero {
+        height: 30vh;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .who-we-are {
+        padding-top: 0px;
+    }
+
+    .who-we-are > .image-right {
+        display: none;
+    }
+
+    .service-item {
+        height: auto;
+    }
+    
+    .service-item .service-content {
+        height: auto;
+        padding-bottom: 64px;
+    }
+
+    .service-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .split-layout {
+        flex-direction: column;
+        min-height: auto;
+        margin-top: 0px !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .content-left {
+        padding-top: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .content-left, .image-right {
+        width: 100%;
+        /* padding: 2rem 1rem; */
+    }
+
+    .image-right {
+        order: -1;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .image-right img {
+        width: 100%;
+        max-width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 0px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .contact form input,
+    .contact form textarea,
+    .contact form button {
+        font-size: 16px; /* Prevent zoom on focus in iOS */
+    }
+
+    .button {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+}

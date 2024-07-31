@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Mile High Aerials</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="shortcut icon" href="#">
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LeTNhsqAAAAAJmwiZCQueP3kRe2dF_xqFkOwT2Y"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html">Mile High Aerials</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact split-layout">
+            <div class="content-left">
+                <h2>Contact Us</h1>
+                <p>Get in touch with us for any inquiries or to book our services.</p>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="button">Send Message</button>
+                </form>
+                <div id="form-submission-status"></div>
+            </div>
+            <div class="image-right">
+                <img src="images/hoboken-lackawanna.jpg" alt="Contact Us">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mile High Aerials. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Constants
+        const baseApiUrl = 'http://localhost:8080/api';
+        const reCaptchaSiteKey = '6LeTNhsqAAAAAJmwiZCQueP3kRe2dF_xqFkOwT2Y';
+        const reCaptchaAction = 'contact_form';
+
+        // Functions
+        async function verifyCaptcha(token) {
+            try {
+                const response = await fetch(baseApiUrl + "/recaptcha", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token,
+                        siteKey: reCaptchaSiteKey
+                    })
+                })
+                if (!response.ok) {
+                    console.error(`HTTP error in verifyCaptcha! Reason:`);
+                    console.log(response);
+                    return false;
+                }
+                const data = await response.json();
+                console.log('Data from verifyCaptcha:', data);
+                return true;
+            } catch (error) {
+                console.error('Error in verifyCaptcha:', error);
+                return false;
+            }
+        }
+
+        async function submitForm() {
+            const form = document.getElementById('contact-form');
+            const statusDiv = document.getElementById('form-submission-status');
+
+            // Gather form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+    
+            // Send the data to your endpoint
+            const response = await fetch(baseApiUrl + "/contact-info", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            });
+            
+            if (!response.ok) {
+                console.error(`HTTP error in contact-info! Response:`);
+                console.error(response);
+                statusDiv.textContent = 'Oops! There was an error sending your message. Please try again later.';
+                statusDiv.style.color = 'red';
+                form.reset();
+                return;
+            }
+
+            statusDiv.textContent = 'Thank you! Your message has been sent.';
+            statusDiv.style.color = 'green';
+            form.reset();
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contact-form');
+            const statusDiv = document.getElementById('form-submission-status');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Implement Google Cloud reCAPTCHA Enterprise (reCAPTCHA v3)
+                // https://cloud.google.com/recaptcha/docs/instrument-web-pages
+                grecaptcha.enterprise.ready(async () => {
+                    const token = await grecaptcha.enterprise.execute(reCaptchaSiteKey, {
+                        action: reCaptchaAction
+                    });
+
+                    const captchaSuccess = await verifyCaptcha(token);
+
+                    if (!captchaSuccess) {
+                        statusDiv.textContent = 'Oops! There was an error with the reCAPTCHA. Please try again later.';
+                        statusDiv.style.color = 'red';
+                        return;
+                    }
+
+                    await submitForm();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

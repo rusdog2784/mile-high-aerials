@@ -1,0 +1,1 @@
+This directory is used to hold any and all key files (i.e., service accounts, ssh, etc.). Do note that all keys placed in this directory are gitignored and therefore not uploaded to GitHub.

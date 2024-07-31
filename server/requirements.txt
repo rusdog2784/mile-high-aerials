@@ -1,0 +1,9 @@
+# Core
+Flask==3.0.3
+flask-cors==4.0.1
+Flask-Limiter==3.8.0
+
+# 3rd Party
+google-cloud-recaptcha-enterprise==1.21.1   # Google reCAPTCHA Enterprise
+mailtrap==2.0.1                             # Mailtrap for sending emails
+redis==5.0.8                                # Redis for caching

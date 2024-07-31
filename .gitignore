@@ -1,0 +1,10 @@
+###################################
+### Custom project-wide ignores ###
+###################################
+
+# Ignore all keys (i.e., service accounts, ssh keys, etc.)
+keys/*
+!keys/README.md
+
+# Ignore all local Python environments
+venv/
