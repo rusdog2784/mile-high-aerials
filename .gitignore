@@ -8,3 +8,6 @@ keys/*
 
 # Ignore all local Python environments
 venv/
+
+# Ignore Draw.io backups, autosaves, and whatever else
+*.drawio.*

@@ -1,7 +1,8 @@
 # Start with Chainguard Nginx image
 FROM cgr.dev/chainguard/nginx:latest-dev
 
-# Copy custom default configuration for Nginx
+# Copy custom nginx files
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/local.default.conf /etc/nginx/conf.d/nginx.default.conf
 
 # Copy HTML content
@@ -14,10 +15,12 @@ COPY styles.css /usr/share/nginx/html
 # Copy images
 COPY images/ /usr/share/nginx/html/images/
 
-# Set read-only permissions for the /usr/share/nginx/html/images directory
+# Set permissions for extra nginx-specific directories and files
 USER root
-RUN chmod 555 /usr/share/nginx/html/images/
-RUN chmod 444 /usr/share/nginx/html/images/*
+RUN chown -R nginx:nginx /usr/share/nginx/html/images/
+RUN touch /var/log/nginx/mile-high-aerials.access.log
+RUN touch /var/log/nginx/mile-high-aerials.error.log
+RUN chown -R nginx:nginx /var/log/nginx/
 USER nginx
 
 # Expose port 8080 as per Chainguard Nginx image
