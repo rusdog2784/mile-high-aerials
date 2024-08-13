@@ -1,10 +1,12 @@
 services:
   api:
-    image: rusdog2784/mile-high-aerials-api:latest
+    image: rusdog2784/mile-high-aerials-api:prod
     restart: always
     container_name: mile-high-aerials-api
     volumes:
       - ./keys/mile-high-aerials-server-sa.json:/app/server-sa.json
+      - ./logs/mile-high-aerials.api.access.log:/var/log/gunicorn/mile-high-aerials.api.access.log
+      - ./logs/mile-high-aerials.api.error.log:/var/log/gunicorn/mile-high-aerials.api.error.log
     environment:
       - DEBUG=0
     ports:
@@ -12,14 +14,16 @@ services:
     depends_on:
       - redis
   client:
-    image: rusdog2784/mile-high-aerials-client:latest
+    image: rusdog2784/mile-high-aerials-client:prod
     restart: always
     container_name: mile-high-aerials-client
     volumes:
       - ./logs/nginx/mile-high-aerials.client.access.log:/var/log/nginx/mile-high-aerials.client.access.log
       - ./logs/nginx/mile-high-aerials.client.error.log:/var/log/nginx/mile-high-aerials.client.error.log
+      - ./certs/public.pem:/etc/cloudflare/www.mile-high-aerials.com.public.pem
+      - ./certs/private.key:/etc/cloudflare/www.mile-high-aerials.com.private.key
     ports:
-      - "80:8080"
+      - "443:443"
   redis:
     image: redislabs/redismod
     restart: always

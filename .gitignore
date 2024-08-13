@@ -17,3 +17,7 @@ venv/
 
 # Ignore all .log files
 *.log
+
+# Ignore all SSL certificates
+*.pem
+*.key

@@ -1,6 +1,8 @@
 services:
   api:
-    build: ./server
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.local
     restart: always
     container_name: mile-high-aerials-api
     volumes:
@@ -12,7 +14,9 @@ services:
     depends_on:
       - redis
   client:
-    build: ./client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.local
     restart: always
     container_name: mile-high-aerials-client
     volumes:
