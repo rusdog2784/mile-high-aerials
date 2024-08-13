@@ -23,13 +23,12 @@ set_GOOGLE_APPLICATION_CREDENTIALS_environment_variable()
 
 # Create the Flask app and enable CORS.
 app = Flask(__name__)
-# redis = Redis(host='redis-cache', port=6379)
 cors = CORS(app, resources=r'/api/*')
 limiter = Limiter(
     key_func=get_remote_address,
     app=app,
     default_limits=["2/second"],
-    storage_uri="redis://redis-cache:6379"
+    storage_uri="redis://redis:6379"
 )
 
 @app.errorhandler(429)
@@ -51,7 +50,7 @@ def ping():
     }), 200
 
 
-@app.route('/api/contact-info', methods=['POST'])
+@app.route('/api/contact', methods=['POST'])
 @limiter.limit("2/day")
 def contact_form():
     data = request.get_json()

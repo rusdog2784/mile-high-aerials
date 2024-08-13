@@ -54,7 +54,7 @@
 
     <script>
         // Constants
-        const baseApiUrl = 'http://localhost:8080/api';
+        const baseApiUrl = 'http://localhost:8888/api';
         const reCaptchaSiteKey = '6LeTNhsqAAAAAJmwiZCQueP3kRe2dF_xqFkOwT2Y';
         const reCaptchaAction = 'contact_form';
 
@@ -95,7 +95,7 @@
             const data = Object.fromEntries(formData.entries());
     
             // Send the data to your endpoint
-            const response = await fetch(baseApiUrl + "/contact-info", {
+            const response = await fetch(baseApiUrl + "/contact", {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -107,7 +107,11 @@
             if (!response.ok) {
                 console.error(`HTTP error in contact-info! Response:`);
                 console.error(response);
-                statusDiv.textContent = 'Oops! There was an error sending your message. Please try again later.';
+                if (response.status === 429) {
+                    statusDiv.textContent = "Oops! You are sending too many requests. You'll have to come back tomorrow.";
+                } else {
+                    statusDiv.textContent = "Oops! There was an error sending your message. Please try again later.";
+                }
                 statusDiv.style.color = 'red';
                 form.reset();
                 return;

@@ -1,0 +1,2 @@
+# `logs` Folder
+This folder is required because I am mapping it to the `client` container's `/var/log/nginx/*.client.*.log` volumes. This is where the client's Nginx logs are stored when running locally.

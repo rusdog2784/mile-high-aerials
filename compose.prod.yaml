@@ -1,24 +1,26 @@
-version: '3'
 services:
-  flask-server:
-    image: rusdog2784/mile-high-aerials-server-image:latest
-    container_name: mile-high-aerials-server
+  api:
+    image: rusdog2784/mile-high-aerials-api:latest
+    restart: always
+    container_name: mile-high-aerials-api
     volumes:
       - ./keys/mile-high-aerials-server-sa.json:/app/server-sa.json
     environment:
       - DEBUG=0
     ports:
-      - "8080:8080"
+      - "8888:8080"
     depends_on:
-      - redis-cache
-  
-  redis-cache:
-    image: redislabs/redismod
-    ports:
-      - '6379:6379'
-
-  nginx-website:
-    image: rusdog2784/mile-high-aerials-client-image:latest
+      - redis
+  client:
+    image: rusdog2784/mile-high-aerials-client:latest
+    restart: always
     container_name: mile-high-aerials-client
+    volumes:
+      - ./logs/nginx/mile-high-aerials.client.access.log:/var/log/nginx/mile-high-aerials.client.access.log
+      - ./logs/nginx/mile-high-aerials.client.error.log:/var/log/nginx/mile-high-aerials.client.error.log
     ports:
       - "80:8080"
+  redis:
+    image: redislabs/redismod
+    restart: always
+    container_name: mile-high-aerials-redis
