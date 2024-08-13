@@ -21,10 +21,10 @@ jobs:
       - name: Build and push client image
         run: |-
           docker build -t ${{ secrets.DOCKER_USERNAME }}/mile-high-aerials-client:prod --platform linux/amd64 -f ./client/Dockerfile.prod ./client
-          docker push ${{ secrets.DOCKER_USERNAME }}/mile-high-aerials-client:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/mile-high-aerials-client:prod
       
       - name: Build and push api image
         run: |-
           docker build -t ${{ secrets.DOCKER_USERNAME }}/mile-high-aerials-api:prod --platform linux/amd64 -f ./server/Dockerfile.prod ./server
-          docker push ${{ secrets.DOCKER_USERNAME }}/mile-high-aerials-api:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/mile-high-aerials-api:prod
       
